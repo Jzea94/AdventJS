@@ -1,15 +1,21 @@
 function cyberReindeer(road, time) {
-  const arr = [...road]
   while(time > 0) {
+    const arr = [...road]
+    if (time === 5) {
+
+    }
+    
     const positionS = arr.indexOf('S')
-    arr.splice(positionS,1,'.')
-    console.log(arr)
+    if (arr[positionS+1] !== '|') {
+      arr.splice(positionS, 2, '.', 'S')
+      console.log(arr)
+    }    
     time --
   }
   return // array
 }
 
-const road = 'S..|...|..'
+const road = 'S......|..'
 const time = 10 // unidades de tiempo
 const result = cyberReindeer(road, time)
 
