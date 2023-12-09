@@ -7,8 +7,9 @@ function cyberReindeer(road, time) {
     
     const positionS = arr.indexOf('S')
     if (arr[positionS+1] !== '|') {
+      are[positionS+1] === '*') ?
+      arr.splice(positionS, 2, '*', 'S') :
       arr.splice(positionS, 2, '.', 'S')
-      console.log(arr)
     }    
     time --
   }
