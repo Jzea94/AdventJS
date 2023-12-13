@@ -1,31 +1,33 @@
-function findNaughtyStep (original, modified) {
-  const opc1 = [...original].every(element => modified.includes(element))
-  if (original === modified) return ''
-  else if (opc1) { // hubo un paso agregado
-    let condition = original.split('')
-    return [...modified].find(element => element !== condition.shift()) // encontramos el paso agregado
-  } else if(!opc1) { // hubo pasos eliminados pero no sabemos si hubo pasos agregados
-    return  [...original].find(element => ![...modified].includes(element))
+/**
+ * escribir una función que identifique y devuelva el primer paso extra que se 
+ * ha añadido o eliminado en la cadena de fabricación. 
+ * ⚠️ No se podrán agregar y eliminar pasos al mismo tiempo
+ * ⚠️ La modificación puede ocurrir en cualquier lugar de la cadena.
+*/
+
+function findNaughtyStep(original, modified) {
+  const [lessWords, mostWords] = 
+  [original, modified].sort((a, b) => a.length - b.length)
+  return [...mostWords].find((x, i) => lessWords[i] != x) ?? ''
+}
+
+const original = 'stepfor'
+const modified = 'stepor'
+console.log(findNaughtyStep(original, modified))
+
+// score: 270
+
+/**
+function findNaughtyStep(original, modified) {
+  if (original.length === modified.length) return ''
+
+  const iterator = modified.length > original.length ? modified : original
+
+  for (let index = 0; index < iterator.length; index++) {
+    if (original[index] !== modified[index]) {
+      return iterator[index]
+    }
   }
 }
-
-const original = 'stepfo'
-const modified = 'stepfor'
-const result = findNaughtyStep(original, modified)
-console.log(result)
-
-console.log('-----------------------------------------------------------------------------')
-
-function findNaughtyStep2(original, modified) {
-  if (original === modified) {
-    return ''
-  } else if ([...original].every(element => modified.includes(element))) {
-    const arrOriginal = original.split('')
-    return [...modified].find(element => element !== arrOriginal.shift());
-  } else return [...original].find(element => ![...modified].includes(element));
-}
-
-const original2 = 'stepfo'
-const modified2 = 'stepfor'
-const result2 = findNaughtyStep2(original2, modified2)
-console.log(result2)
+//score => 350
+*/

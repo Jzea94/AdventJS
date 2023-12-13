@@ -1,28 +1,21 @@
 function cyberReindeer(road, time) {
-  let arr = [...road]
-  const result = [road]
-  const timeInit = time
+  const snapshots = [road]
+  let lastChar = '.'
 
-  while (time > 1) {    
-    const positionS = arr.indexOf("S")
+  for (let iteracion = 1; iteracion < time; iteracion++) {
+    if (iteracion === 5) road = road.replaceAll('|', '*')   
 
-    if (time === timeInit - 4) {
-      arr = arr.join("").replaceAll("|", "*").split('')
+    const matches = road.match(/S[\*\.]/g)
+
+    if(matches) {
+      road = road.replace(matches[0], lastChar + 'S')
+      lastChar = matches[0][1]
     }
 
-    if (arr[positionS + 1] !== "|") {      
-      road[positionS] === '|' ?
-      arr.splice(positionS, 2, "*", "S") :
-      arr.splice(positionS, 2, ".", "S")
-      result.push(arr.join(""))        
-    } else result.push(arr.join(""))
-
-    time--
+    snapshots.push(road)
   }
-  return result
-}
+  return snapshots
+} 
+// score: 160
 
-const road = 'S..||||||.'
-const time = 9 // unidades de tiempo
-const result = cyberReindeer(road, time)
-console.log(result)
+console.log(cyberReindeer('S..|...|..', 10))
